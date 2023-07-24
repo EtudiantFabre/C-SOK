@@ -1,6 +1,6 @@
 # c_sok
 
-Projet de flutter pour la gestion d'assistance.
+Gestion de proclamateur
 
 ## Getting Started
 
