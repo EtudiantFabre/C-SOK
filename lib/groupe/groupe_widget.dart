@@ -24,37 +24,32 @@ class GroupeWidget extends StatelessWidget {
         }));
       },
       child: Container(
-        child: Card(
-          elevation: 5,
-          color: Colors.blueGrey.shade300,
-          child: Column(
-            children: [
-              ListTile(
-                iconColor: Colors.amber,
-                leading: CircleAvatar(child: Text(groupe.nom_gpe[0])),
-                title: Text(
-                  groupe.nom_gpe,
-                  //style: const TextStyle(fontSize: 16),
-                ),
-                subtitle: Text(
-                  groupe.lieu,
-                  //style: const TextStyle(fontSize: 12),
+        child: Column(
+          children: [
+            ListTile(
+              iconColor: Colors.amber,
+              leading: CircleAvatar(
+                child: Text(
+                  capitalizeFirstLetter(groupe.nom_gpe)[0] ?? "N/A",
                 ),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  IconButton(
-                    onPressed: onDeletePressed,
-                    icon: Icon(
-                      Icons.delete,
-                      color: Colors.red,
-                    ),
-                  ),
-                ],
-              )
-            ],
-          ),
+              title: Text(
+                capitalizeFirstLetter(groupe.nom_gpe),
+                //style: const TextStyle(fontSize: 16),
+              ),
+              subtitle: Text(
+                capitalizeFirstLetter(groupe.lieu),
+                //style: const TextStyle(fontSize: 12),
+              ),
+              trailing: IconButton(
+                onPressed: onDeletePressed,
+                icon: const Icon(
+                  Icons.delete,
+                  color: Colors.red,
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );

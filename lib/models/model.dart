@@ -25,6 +25,11 @@ class GroupeModel {
       'lieu': lieu,
     };
   }
+
+  @override
+  String toString() {
+    return 'nom_gpe: $nom_gpe, id: $id, created_at: $created_at, lieu: $lieu';
+  }
 }
 
 class ProclamateurModel {
@@ -36,6 +41,7 @@ class ProclamateurModel {
   final String adresse;
   final String date_naiss;
   final int groupe;
+  final int type;
   ProclamateurModel(
       {required this.nom,
       this.id,
@@ -44,7 +50,8 @@ class ProclamateurModel {
       required this.email,
       required this.adresse,
       required this.date_naiss,
-      required this.groupe});
+      required this.groupe,
+      required this.type});
 
   factory ProclamateurModel.fromJson(Map<String, dynamic> map) {
     return ProclamateurModel(
@@ -56,6 +63,7 @@ class ProclamateurModel {
       adresse: map['adresse'],
       date_naiss: map['date_naiss'],
       groupe: map['groupe'],
+      type: map['type'],
     );
   }
   Map<String, dynamic> toMap() {
@@ -67,13 +75,14 @@ class ProclamateurModel {
       'email': email,
       'adresse': adresse,
       'date_naiss': date_naiss,
-      'groupe': groupe
+      'groupe': groupe,
+      'type': type,
     };
   }
 
   @override
   String toString() {
-    return 'Proclamateur{id: $id, nom: $nom, prenom: $prenom, tel: $tel, email: $email, adresse: $adresse, date_naiss: $date_naiss, groupe: $groupe}';
+    return 'Proclamateur{id: $id, nom: $nom, prenom: $prenom, tel: $tel, email: $email, adresse: $adresse, date_naiss: $date_naiss, groupe: $groupe, type: $type}';
   }
 }
 
@@ -163,5 +172,28 @@ class UserModel {
   @override
   String toString() {
     return 'User{id: $id, name: $name, image: $image, email: $email, password: $password}';
+  }
+}
+
+//  Ajout de la table type :
+class TypeModel {
+  final int? id;
+  final String name;
+
+  TypeModel({
+    required this.name,
+    this.id,
+  });
+
+  factory TypeModel.fromJson(Map<String, dynamic> map) {
+    return TypeModel(name: map['name'], id: map['id']);
+  }
+  Map<String, dynamic> toMap() {
+    return {'name': name, 'id': id};
+  }
+
+  @override
+  String toString() {
+    return 'Type {id: $id, name: $name}';
   }
 }

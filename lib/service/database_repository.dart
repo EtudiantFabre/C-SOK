@@ -32,6 +32,12 @@ class DatabaseRepository {
     ''');
 
     await db.execute('''
+      create table ${TypeConst.tableName} ( 
+        ${TypeConst.id} integer primary key autoincrement, 
+        ${TypeConst.name} text not null)
+    ''');
+
+    await db.execute('''
       create table ${GroupeConst.tableName} ( 
         ${GroupeConst.id} integer primary key autoincrement, 
         ${GroupeConst.lieu} text not null,
@@ -48,7 +54,8 @@ class DatabaseRepository {
         ${ProclamateurConst.email} text nullable,
         ${ProclamateurConst.adresse} text not null,
         ${ProclamateurConst.date_naiss} text not null,
-        ${ProclamateurConst.groupe} integer nullable)
+        ${ProclamateurConst.groupe} integer nullable,
+        ${ProclamateurConst.type} integer nullable)
     ''');
 
     await db.execute('''
@@ -139,6 +146,36 @@ class DatabaseRepository {
     } catch (e) {
       print(e.toString());
     }
+  }
+
+  Future<ProclamateurModel?> getProcById(int id) async {
+    ProclamateurModel? proclamateur;
+    try {
+      final db = await instance.database;
+      final List<Map<String, dynamic>> maps = await db.query(
+        ProclamateurConst.tableName,
+        where: '${ProclamateurConst.id} = ?',
+        whereArgs: [id],
+      );
+      if (maps.isNotEmpty) {
+        // Vous pouvez supposer ici que l'id est unique et renvoyer le premier élément de la liste
+        proclamateur = ProclamateurModel.fromJson(maps.first);
+      }
+    } catch (e) {
+      print(e.toString());
+    }
+    return proclamateur;
+  }
+
+  Future<ProclamateurModel?> getProclamateurById(int id) async {
+    ProclamateurModel? proclamateur;
+    try {
+      proclamateur = await DatabaseRepository.instance.getProcById(id);
+    } catch (e) {
+      print("Erreur lors de la récupération du proclamateur : $e");
+    }
+
+    return proclamateur;
   }
 
   Future<void> updateProc(ProclamateurModel proc) async {
@@ -241,6 +278,52 @@ class DatabaseRepository {
         rapport.toMap(),
         where: '${RapportConst.id} = ?',
         whereArgs: [rapport.id],
+      );
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
+  //  Type de frère
+  Future<void> insertType({required TypeModel type}) async {
+    try {
+      final db = await instance.database;
+      await db.insert(TypeConst.tableName, type.toMap());
+      print('TypeAdded');
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
+  Future<List<TypeModel>> getAllTypes() async {
+    final db = await instance.database;
+
+    final result = await db.query(TypeConst.tableName);
+
+    return result.map((json) => TypeModel.fromJson(json)).toList();
+  }
+
+  Future<void> deleteType(int id) async {
+    try {
+      final db = await instance.database;
+      await db.delete(
+        TypeConst.tableName,
+        where: '${TypeConst.id} = ?',
+        whereArgs: [id],
+      );
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
+  Future<void> updateType(TypeModel type) async {
+    try {
+      final db = await instance.database;
+      db.update(
+        TypeConst.tableName,
+        type.toMap(),
+        where: '${TypeConst.id} = ?',
+        whereArgs: [type.id],
       );
     } catch (e) {
       print(e.toString());

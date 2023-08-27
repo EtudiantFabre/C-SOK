@@ -19,9 +19,11 @@ class _AddProclamateurScreenState extends State<AddProclamateurScreen> {
   TextEditingController adresseController = TextEditingController();
 
   var groupeSelect;
+  var selectType;
 
   Color bgColor = Colors.black26;
   List<GroupeModel> itemsGroupe = [];
+  List<TypeModel> itemsType = [];
   DateTime creneau = DateTime.now();
 
   @override
@@ -53,6 +55,7 @@ class _AddProclamateurScreenState extends State<AddProclamateurScreen> {
           emailController.text = widget.proc!.email ?? '';
           adresseController.text = widget.proc!.adresse ?? '';
           groupeSelect = widget.proc!.groupe ?? 0;
+          selectType = widget.proc!.type ?? 0;
           creneau = DateTime.parse(widget.proc!.date_naiss);
         });
       }
@@ -68,7 +71,8 @@ class _AddProclamateurScreenState extends State<AddProclamateurScreen> {
           email: emailController.text,
           adresse: adresseController.text,
           date_naiss: creneau.toString(),
-          groupe: groupeSelect);
+          groupe: groupeSelect,
+          type: selectType);
       if (widget.proc == null) {
         if (procl.nom != "" &&
             procl.prenom != "" &&
@@ -76,6 +80,7 @@ class _AddProclamateurScreenState extends State<AddProclamateurScreen> {
             procl.email != "" &&
             procl.adresse != "" &&
             procl.groupe != "" &&
+            procl.type != "" &&
             procl.date_naiss != "") {
           await DatabaseRepository.instance.insertProc(proc: procl);
           ScaffoldMessenger.of(context).showSnackBar(
@@ -114,6 +119,14 @@ class _AddProclamateurScreenState extends State<AddProclamateurScreen> {
     await DatabaseRepository.instance.getAllGroupes().then((value) {
       setState(() {
         itemsGroupe = value;
+      });
+    }).catchError((e) => debugPrint(e.toString()));
+  }
+
+  void getTypes() async {
+    await DatabaseRepository.instance.getAllTypes().then((value) {
+      setState(() {
+        itemsType = value;
       });
     }).catchError((e) => debugPrint(e.toString()));
   }
@@ -291,6 +304,39 @@ class _AddProclamateurScreenState extends State<AddProclamateurScreen> {
                 }
               },
               value: groupeSelect,
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                prefixIcon: Icon(
+                  Icons.group,
+                ),
+                prefixIconColor: Colors.black,
+                hintText: "Choisir un groupe",
+              ),
+            ),
+            DropdownButtonFormField(
+              items: itemsType
+                  .map(
+                    (type) => DropdownMenuItem(
+                      value: type.id,
+                      child: Text(type.name),
+                    ),
+                  )
+                  .toList(),
+              onChanged: (value) {
+                setState(
+                  () {
+                    selectType = value;
+                  },
+                );
+              },
+              validator: (groupe) {
+                if (groupe == "") {
+                  return "Ne dois pas être null";
+                } else {
+                  return null;
+                }
+              },
+              value: selectType,
               decoration: const InputDecoration(
                 border: OutlineInputBorder(),
                 prefixIcon: Icon(

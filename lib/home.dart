@@ -22,8 +22,8 @@ class _HomeScreenState extends State<HomeScreen> {
     var widht = MediaQuery.sizeOf(context).width;
     return Scaffold(
       appBar: AppBar(
-        title: const Center(
-          child: Text("Accueil"),
+        title: Text(
+          "Accueil",
         ),
         automaticallyImplyLeading: false,
         scrolledUnderElevation: scrolledUnderElevation,

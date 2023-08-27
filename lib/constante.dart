@@ -35,6 +35,7 @@ class ProclamateurConst {
   static const String adresse = 'adresse';
   static const String date_naiss = 'date_naiss';
   static const String groupe = 'groupe';
+  static const String type = 'type';
   static const String tableName = 'proclamateurs';
 }
 
@@ -57,4 +58,18 @@ class UserConst {
   static const String email = 'email';
   static const String password = 'password';
   static const String tableName = 'users';
+}
+
+class TypeConst {
+  static const String name = 'name';
+  static const String id = 'id';
+  static const String tableName = 'types';
+}
+
+String capitalizeFirstLetter(String text) {
+  if (text.isEmpty) {
+    return text;
+  }
+
+  return text[0].toUpperCase() + text.substring(1);
 }

@@ -33,7 +33,7 @@ class _GroupeListState extends State<GroupeList> {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: const Text("Groupes"),
+          title: const Text("Liste des Groupes"),
           automaticallyImplyLeading: false,
           scrolledUnderElevation: scrolledUnderElevation,
           shadowColor:
@@ -55,10 +55,11 @@ class _GroupeListState extends State<GroupeList> {
             ),
           ],
         ),
-        floatingActionButton: FloatingActionButton(
+        floatingActionButton: FloatingActionButton.extended(
           backgroundColor: Theme.of(context).colorScheme.primary,
           onPressed: gotoAddGroupeScreen,
-          child: const Icon(
+          label: Text('Ajouter'),
+          icon: const Icon(
             Icons.add,
             color: Colors.white,
           ),
@@ -70,15 +71,15 @@ class _GroupeListState extends State<GroupeList> {
                     Text('Vous n\'avez rien pour enregistrer pour l\'instant'))
             : Column(
                 children: [
-                  const SizedBox(
+                  /* const SizedBox(
                     height: 10,
-                  ),
+                  ), */
                   Expanded(
-                    child: ListView.separated(
-                      separatorBuilder: (context, index) => const SizedBox(
+                    child: ListView.builder(
+                      /* separatorBuilder: (context, index) => const SizedBox(
                         height: 20,
-                      ),
-                      padding: const EdgeInsets.all(16),
+                      ), */
+                      padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
                       itemBuilder: (context, index) {
                         final groupe = mesgroupes[index];
                         return GroupeWidget(

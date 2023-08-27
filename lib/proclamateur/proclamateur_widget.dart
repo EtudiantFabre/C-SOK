@@ -29,20 +29,19 @@ class ProclamateurWidget extends StatelessWidget {
           child: Column(
             children: [
               ListTile(
-                leading: CircleAvatar(child: Text(proc.nom[0] ?? "N/A")),
+                leading: CircleAvatar(
+                  child: Text(
+                    capitalizeFirstLetter(proc.nom)[0] ?? "N/A",
+                  ),
+                ),
                 title: Text(
-                  proc.nom,
-                  //style: const TextStyle(fontSize: 16),
+                  capitalizeFirstLetter(proc.nom) ?? "N/A",
                 ),
                 subtitle: Text(
-                  proc.prenom,
+                  capitalizeFirstLetter(proc.prenom) ?? "N/A",
                   style: const TextStyle(fontSize: 12),
                 ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  IconButton(
+                trailing: IconButton(
                     onPressed: onDeletePressed,
                     icon: const Icon(
                       Icons.delete,
@@ -50,10 +49,10 @@ class ProclamateurWidget extends StatelessWidget {
                     ),
                     style: IconButton.styleFrom(
                         backgroundColor: Colors.red.shade600,
-                        foregroundColor: Colors.white),
+                    foregroundColor: Colors.white,
                   ),
-                ],
-              )
+                  ),
+              ),
             ],
           ),
         ),

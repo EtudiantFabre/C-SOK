@@ -55,10 +55,11 @@ class ProclamateurListState extends State<ProclamateurList> {
             ),
           ],
         ),
-        floatingActionButton: FloatingActionButton(
+        floatingActionButton: FloatingActionButton.extended(
           backgroundColor: Theme.of(context).colorScheme.primary,
           onPressed: goAddProcScreen,
-          child: const Icon(
+          label: Text('Ajouter'),
+          icon: const Icon(
             Icons.add,
             color: Colors.white,
           ),
@@ -78,11 +79,11 @@ class ProclamateurListState extends State<ProclamateurList> {
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                   Expanded(
-                    child: ListView.separated(
-                      separatorBuilder: (context, index) => const SizedBox(
+                    child: ListView.builder(
+                      /* separatorBuilder: (context, index) => const SizedBox(
                         height: 20,
-                      ),
-                      padding: const EdgeInsets.all(16),
+                      ), */
+                      padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
                       itemBuilder: (context, index) {
                         final proc = mesprocs[index];
                         return ProclamateurWidget(

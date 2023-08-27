@@ -1,3 +1,4 @@
+import 'package:c_sok/constante.dart';
 import 'package:c_sok/models/model.dart';
 import 'package:c_sok/service/database_repository.dart';
 import 'package:flutter/material.dart';
@@ -31,12 +32,15 @@ class _PdfPreviewRapportState extends State<PdfPreviewRapport> {
   @override
   void initState() {
     getProclamateurs();
+    getRapports();
+    getGroupes();
     super.initState();
   }
 
   List<ProclamateurModel> mesprocs = [];
   List<GroupeModel> mesgroupes = [];
   List<RapportModel> mesrapport = [];
+  ProclamateurModel? proclamateur;
 
   pw.Widget PaddedText(final String text,
           {final pw.TextAlign align = pw.TextAlign.left}) =>
@@ -50,9 +54,9 @@ class _PdfPreviewRapportState extends State<PdfPreviewRapport> {
 
   Future<Uint8List> makePdf() async {
     final pdf = pw.Document();
-    final ByteData bytes = await rootBundle.load('lib/assets/img1.jpg');
+    final ByteData bytes = await rootBundle.load('lib/assets/img7.jpg');
     final Uint8List byteList = bytes.buffer.asUint8List();
-    debugPrint('Vraiment');
+    debugPrint(mesrapport.toString());
     pdf.addPage(
       pw.Page(
         margin: const pw.EdgeInsets.all(10),
@@ -136,31 +140,165 @@ class _PdfPreviewRapportState extends State<PdfPreviewRapport> {
                     ],
                   ),
                   ...mesrapport.map(
-                    (r) => pw.TableRow(
-                      children: [
-                        pw.Expanded(
-                          child: PaddedText(
-                            r.publ,
+                    (r) {
+                      getProclamateurById(r.proclamateur);
+                      //debugPrint(proclamateur.toString());
+                      return pw.TableRow(
+                        children: [
+                          pw.Expanded(
+                            child: PaddedText(
+                              capitalizeFirstLetter(
+                                  "${proclamateur?.nom ?? ''} ${proclamateur?.prenom ?? ''}"),
+                            ),
                           ),
-                          flex: 2,
-                        ),
-                        pw.Expanded(
-                          child: PaddedText(
-                            r.videos,
+                          pw.Expanded(
+                            child: PaddedText(
+                              r.publ,
+                            ),
                           ),
-                          flex: 2,
-                        ),
-                      ],
-                    ),
+                          pw.Expanded(
+                            child: PaddedText(
+                              r.videos,
+                            ),
+                          ),
+                          pw.Expanded(
+                            child: PaddedText(
+                              r.nbre_heure,
+                            ),
+                          ),
+                          pw.Expanded(
+                            child: PaddedText(
+                              r.nvle_visite,
+                            ),
+                          ),
+                          pw.Expanded(
+                            child: PaddedText(
+                              r.cours_bibl,
+                            ),
+                          ),
+                        ],
+                      );
+                    },
                   ),
                   pw.TableRow(
                     children: [
+                      pw.Container(
+                        color: PdfColors.grey600,
+                        child: pw.Padding(
+                          padding: const pw.EdgeInsets.all(2),
+                          child: pw.Text(
+                            'TOTAUX PROCL',
+                            style: pw.Theme.of(context).header4,
+                            textAlign: pw.TextAlign.center,
+                          ),
+                        ),
+                      ),
                       pw.Padding(
                         padding: const pw.EdgeInsets.all(2),
                         child: pw.Text(
-                          'TOTAUX PROCL',
+                          '0',
+                          textAlign: pw.TextAlign.right,
+                        ),
+                      ),
+                      pw.Padding(
+                        padding: const pw.EdgeInsets.all(2),
+                        child: pw.Text(
+                          '0',
                           style: pw.Theme.of(context).header4,
                           textAlign: pw.TextAlign.center,
+                        ),
+                      ),
+                      pw.Padding(
+                        padding: const pw.EdgeInsets.all(2),
+                        child: pw.Text(
+                          '0',
+                          style: pw.Theme.of(context).header4,
+                          textAlign: pw.TextAlign.right,
+                        ),
+                      ),
+                      pw.Padding(
+                        padding: const pw.EdgeInsets.all(2),
+                        child: pw.Text(
+                          '0',
+                          style: pw.Theme.of(context).header4,
+                          textAlign: pw.TextAlign.right,
+                        ),
+                      ),
+                      pw.Padding(
+                        padding: const pw.EdgeInsets.all(2),
+                        child: pw.Text(
+                          '0',
+                          style: pw.Theme.of(context).header4,
+                          textAlign: pw.TextAlign.right,
+                        ),
+                      ),
+                    ],
+                  ),
+                  pw.TableRow(
+                    children: [
+                      pw.Container(
+                        color: PdfColors.grey600,
+                        child: pw.Padding(
+                          padding: const pw.EdgeInsets.all(2),
+                          child: pw.Text(
+                            'TOTAUX PP',
+                            style: pw.Theme.of(context).header4,
+                            textAlign: pw.TextAlign.center,
+                          ),
+                        ),
+                      ),
+                      pw.Padding(
+                        padding: const pw.EdgeInsets.all(2),
+                        child: pw.Text(
+                          '0',
+                          textAlign: pw.TextAlign.right,
+                        ),
+                      ),
+                      pw.Padding(
+                        padding: const pw.EdgeInsets.all(2),
+                        child: pw.Text(
+                          '0',
+                          style: pw.Theme.of(context).header4,
+                          textAlign: pw.TextAlign.center,
+                        ),
+                      ),
+                      pw.Padding(
+                        padding: const pw.EdgeInsets.all(2),
+                        child: pw.Text(
+                          '0',
+                          style: pw.Theme.of(context).header4,
+                          textAlign: pw.TextAlign.right,
+                        ),
+                      ),
+                      pw.Padding(
+                        padding: const pw.EdgeInsets.all(2),
+                        child: pw.Text(
+                          '0',
+                          style: pw.Theme.of(context).header4,
+                          textAlign: pw.TextAlign.right,
+                        ),
+                      ),
+                      pw.Padding(
+                        padding: const pw.EdgeInsets.all(2),
+                        child: pw.Text(
+                          '0',
+                          style: pw.Theme.of(context).header4,
+                          textAlign: pw.TextAlign.right,
+                        ),
+                      ),
+                    ],
+                  ),
+                  pw.TableRow(
+                    children: [
+                      pw.Container(
+                        color: PdfColors.grey600,
+                        child: pw.Padding(
+                          padding: const pw.EdgeInsets.all(2),
+                          child: pw.Text(
+                            'TOTAUX PA',
+                            style: pw.Theme.of(context).header4,
+                            textAlign: pw.TextAlign.center,
+                          ),
                         ),
                       ),
                       pw.Padding(
@@ -237,5 +375,13 @@ class _PdfPreviewRapportState extends State<PdfPreviewRapport> {
       });
       // ignore: invalid_return_type_for_catch_error
     }).catchError((e) => debugPrint(e.toString()));
+  }
+
+  void getProclamateurById(int id) async {
+    await DatabaseRepository.instance.getProcById(id).then((value) {
+      setState(() {
+        proclamateur = value;
+      });
+    });
   }
 }

@@ -47,10 +47,13 @@ class RapportListState extends State<RapportList> {
             ),
           ],
         ),
-        floatingActionButton: FloatingActionButton(
+        floatingActionButton: FloatingActionButton.extended(
           backgroundColor: Theme.of(context).colorScheme.primary,
           onPressed: goAddRapportScreen,
-          child: const Icon(
+          label: const Text(
+            'Ajouter',
+          ),
+          icon: const Icon(
             Icons.add,
             color: Colors.white,
           ),
@@ -62,18 +65,8 @@ class RapportListState extends State<RapportList> {
                     Text('Rien pour enregistrer comme rapport pour l\'instant'))
             : Column(
                 children: [
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  const Text(
-                    "Liste des Rapports",
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                  ),
                   Expanded(
-                    child: ListView.separated(
-                      separatorBuilder: (context, index) => const SizedBox(
-                        height: 20,
-                      ),
+                    child: ListView.builder(
                       padding: const EdgeInsets.all(16),
                       itemBuilder: (context, index) {
                         final rapport = mesrapport[index];
