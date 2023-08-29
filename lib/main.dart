@@ -1,8 +1,7 @@
-import 'package:c_sok/Welcome.dart';
 import 'package:c_sok/dashboard.dart';
-import 'package:c_sok/groupe/groupe_action.dart';
 import 'package:c_sok/groupe/groupe_list.dart';
 import 'package:c_sok/settings.dart';
+import 'package:c_sok/type/type_list.dart';
 import 'package:flutter/material.dart';
 import 'package:adaptive_theme/adaptive_theme.dart';
 
@@ -15,21 +14,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    /*return MaterialApp(
-      title: 'C-SOK',
-      debugShowCheckedModeBanner: false,
-      initialRoute: '/',
-      routes: {
-        '/': (context) => Welcome(),
-        '/dashboard': (context) => Dashboard(),
-        '/settings': (context) => Settings()
-      },
-  
-      theme: ThemeData(
-        primarySwatch: Colors.blueGrey     ,
-      ),
-      //home: const MyHomePage(title: 'C-SOK'),
-    );*/
     return AdaptiveTheme(
       light: ThemeData(
         brightness: Brightness.light,
@@ -51,6 +35,7 @@ class MyApp extends StatelessWidget {
           '/dashboard': (context) => const Dashboard(),
           '/settings': (context) => const Settings(),
           '/groupes': (context) => const GroupeList(),
+          '/type_list': (context) => const TypeList(),
         },
         theme: theme,
       ),

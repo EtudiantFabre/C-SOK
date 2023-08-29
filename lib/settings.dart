@@ -17,39 +17,23 @@ class _SettingsState extends State<Settings> {
     return Scaffold(
       appBar: AppBar(
         title: const Center(
-          child: Text("Paramètres"),
+          child: Text(
+            "Paramètres",
+          ),
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(6),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-                "Apparence",
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-                color: Colors.blueGrey
-              ),
-            ),
-            const Divider(
-              color: Colors.grey,
-            ),
-            /*ElevatedButton(
-              onPressed: () {
-                AdaptiveTheme.of(context).toggleThemeMode();
-              },
-              child: Text('Changer le thème'),
-            ),*/
-            SwitchListTile(
-              title: const Text(
-                "Mode sombre"
-              ),
-                activeColor: Colors.blue,
+            ListTile(
+              leading: const Icon(Icons.nightlight_round, size: 50.0),
+              title: const Text('Apparence'),
+              subtitle: const Text("Sombre"),
+              trailing: Switch(
                 value: _darkModeEnabled,
                 onChanged: (value) {
-                  print(value);
                   if (value == true) {
                     AdaptiveTheme.of(context).setDark();
                   } else {
@@ -59,26 +43,25 @@ class _SettingsState extends State<Settings> {
                     _darkModeEnabled = value;
                   });
                 },
-              secondary: const Icon(Icons.nightlight_round),
-            ),
-            const Text(
-              "Compte",
-              style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.blueGrey
               ),
             ),
             const Divider(
               color: Colors.grey,
+            ), 
+            const SizedBox(
+              height: 5,
             ),
-            GestureDetector(
-              child: const Text(
-                "Modifier mon compte",
-                style: TextStyle(
-
-                ),
+            ListTile(
+              leading: const Icon(
+                Icons.people,
+                size: 50.0,
               ),
+              title: const Text('Type'),
+              subtitle: const Text('Type de frère'),
+              trailing: const Icon(Icons.person),
+              onTap: () {
+                Navigator.pushNamed(context, '/type_list');
+              },
             ),
           ],
         ),

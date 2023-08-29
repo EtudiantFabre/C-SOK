@@ -62,6 +62,7 @@ class _AddGroupeScreenState extends State<AddGroupeScreen> {
         );
       }
     } else {
+      print("groupe : $groupe");
       await DatabaseRepository.instance.updateGroupe(groupe);
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -69,8 +70,6 @@ class _AddGroupeScreenState extends State<AddGroupeScreen> {
         ),
       );
     }
-
-    //Navigator.pushNamed(context, '/groupes');
   }
 
   @override
@@ -109,7 +108,6 @@ class _AddGroupeScreenState extends State<AddGroupeScreen> {
               ),
               keyboardType: TextInputType.text,
               controller: lieuController,
-              onTap: () {},
               validator: (val) => val!.isEmpty ? 'Lieu invalide.' : null,
               decoration: const InputDecoration(
                 border: OutlineInputBorder(),

@@ -24,38 +24,35 @@ class ProclamateurWidget extends StatelessWidget {
         }));
       },
       child: Container(
-        child: Card(
-          elevation: 5,
-          child: Column(
-            children: [
-              ListTile(
-                leading: CircleAvatar(child: Text(proc.nom[0] ?? "N/A")),
-                title: Text(
-                  proc.nom,
-                  //style: const TextStyle(fontSize: 16),
-                ),
-                subtitle: Text(
-                  proc.prenom,
-                  style: const TextStyle(fontSize: 12),
+        child: Column(
+          children: [
+            ListTile(
+              leading: CircleAvatar(
+                child: Text(
+                  capitalizeFirstLetter(proc.nom)[0] ?? "N/A",
                 ),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  IconButton(
-                    onPressed: onDeletePressed,
-                    icon: const Icon(
-                      Icons.delete,
-                      color: Colors.red,
-                    ),
-                    style: IconButton.styleFrom(
-                        backgroundColor: Colors.red.shade600,
-                        foregroundColor: Colors.white),
-                  ),
-                ],
-              )
-            ],
-          ),
+              title: Text(
+                "${capitalizeFirstLetter(proc.nom)} ${capitalizeFirstLetter(proc.prenom)}" ??
+                    "N/A",
+              ),
+              subtitle: Text(
+                proc.email ?? "N/A",
+                style: const TextStyle(fontSize: 12),
+              ),
+              trailing: IconButton(
+                onPressed: onDeletePressed,
+                icon: const Icon(
+                  Icons.delete,
+                  color: Colors.red,
+                ),
+                style: IconButton.styleFrom(
+                  backgroundColor: Colors.red.shade600,
+                  foregroundColor: Colors.white,
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );
