@@ -14,22 +14,24 @@ class RapportList extends StatefulWidget {
 }
 
 class RapportListState extends State<RapportList> {
+  List<RapportModel> mesrapport = [];
+
   @override
   void initState() {
     getRapports();
     super.initState();
   }
 
-  List<RapportModel> mesrapport = [];
   @override
   Widget build(BuildContext context) {
+    print("Liste des rapports : $mesrapport");
     return RefreshIndicator(
       onRefresh: () async {
         getRapports();
       },
       child: Scaffold(
         appBar: AppBar(
-          title: Text("Rapports"),
+          title: Text("Rapport"),
           actions: [
             IconButton(
               onPressed: () {

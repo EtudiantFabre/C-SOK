@@ -56,7 +56,7 @@ class ProclamateurListState extends State<ProclamateurList> {
           ],
         ),
         floatingActionButton: FloatingActionButton.extended(
-          backgroundColor: Theme.of(context).colorScheme.primary,
+          //backgroundColor: Theme.of(context).colorScheme.primary,
           onPressed: goAddProcScreen,
           label: Text('Ajouter'),
           icon: const Icon(
@@ -64,7 +64,7 @@ class ProclamateurListState extends State<ProclamateurList> {
             color: Colors.white,
           ),
         ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+        //floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
         body: mesprocs.isEmpty
             ? const Center(
                 child:

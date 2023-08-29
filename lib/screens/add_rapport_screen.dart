@@ -1,3 +1,4 @@
+import 'package:c_sok/constante.dart';
 import 'package:c_sok/models/model.dart';
 import 'package:c_sok/service/database_repository.dart';
 import 'package:flutter/material.dart';
@@ -115,134 +116,269 @@ class _AddRapportScreenState extends State<AddRapportScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Ajout & Modification Rapport'),
+        title: const Text('Rapport'),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: ListView(
-          children: [
-            //  Publication
-            TextFormField(
-              style: const TextStyle(
-                fontSize: 18,
-              ),
-              keyboardType: TextInputType.number,
-              controller: publicationController,
-              onTap: () {},
-              validator: (val) => val!.isEmpty ? 'Valeur invalide.' : null,
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                hintText: "Publication laissé",
-              ),
-            ),
-            const SizedBox(
-              height: 15,
-            ),
-            //  Vidéo
-            TextFormField(
-              style: const TextStyle(
-                fontSize: 18,
-              ),
-              keyboardType: TextInputType.number,
-              controller: videosController,
-              onTap: () {},
-              validator: (val) => val!.isEmpty ? 'Valeur invalide.' : null,
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                hintText: "Vidéo montré",
-              ),
-            ),
-            const SizedBox(
-              height: 15,
-            ),
+      body: Container(
+        child: Form(
+          child: Center(
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  //  Publication
+                  const Align(
+                    alignment: Alignment.centerLeft,
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 32.0, top: 8.0),
+                      child: Text(
+                        'Ajout de Rapport',
+                        style: TextStyle(
+                            fontFamily: 'Poppins',
+                            fontStyle: FontStyle.normal,
+                            fontSize: 20,
+                            color: Colors.black),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
 
-            //  Heure
-            TextFormField(
-              style: const TextStyle(
-                fontSize: 18,
-              ),
-              keyboardType: TextInputType.number,
-              controller: nbreHeureController,
-              onTap: () {},
-              validator: (val) => val!.isEmpty ? 'Heure invalide.' : null,
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                hintText: "Heure",
-              ),
-            ),
-            const SizedBox(
-              height: 15,
-            ),
-            //  Nouvelle visite
-            TextFormField(
-              style: const TextStyle(
-                fontSize: 18,
-              ),
-              keyboardType: TextInputType.number,
-              controller: nvleVisiteController,
-              onTap: () {},
-              validator: (val) => val!.isEmpty ? 'Valeur invalide.' : null,
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                hintText: "Nouvelle visite",
-              ),
-            ),
-            const SizedBox(
-              height: 15,
-            ),
-            //  Cours biblique
-            TextFormField(
-              style: const TextStyle(
-                fontSize: 18,
-              ),
-              keyboardType: TextInputType.number,
-              controller: coursBibliqueController,
-              onTap: () {},
-              validator: (val) => val!.isEmpty ? 'Valeur invalide.' : null,
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                hintText: "Cours biblique",
-              ),
-            ),
-            const SizedBox(
-              height: 15,
-            ),
-            //  Proclamateur
+                  const Align(
+                    alignment: Alignment.centerLeft,
+                    child: Padding(
+                      padding: EdgeInsets.only(left: 32.0),
+                      child: Text(
+                        'Publication laissé',
+                        style: TextStyle(
+                            fontFamily: 'Poppins',
+                            fontStyle: FontStyle.normal,
+                            fontSize: 16,
+                            color: Colors.black),
+                      ),
+                    ),
+                  ),
+                  Container(
+                    padding: textFromFieldPadding(),
+                    child: TextFormField(
+                      style: const TextStyle(
+                        fontSize: 18,
+                      ),
+                      keyboardType: TextInputType.number,
+                      controller: publicationController,
+                      onTap: () {},
+                      validator: (val) =>
+                          val!.isEmpty ? 'Valeur invalide.' : null,
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        hintText: "Publication laissé",
+                      ),
+                      enabled: true,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  //  Vidéo
+            
+                  const Align(
+                    alignment: Alignment.centerLeft,
+                    child: Padding(
+                      padding: EdgeInsets.only(left: 32.0),
+                      child: Text(
+                        'Vidéo',
+                        style: TextStyle(
+                            fontFamily: 'Poppins',
+                            fontStyle: FontStyle.normal,
+                            fontSize: 16,
+                            color: Colors.black),
+                      ),
+                    ),
+                  ),
+                  Container(
+                    padding: textFromFieldPadding(),
+                    child: TextFormField(
+                      style: const TextStyle(
+                        fontSize: 18,
+                      ),
+                      keyboardType: TextInputType.number,
+                      controller: videosController,
+                      onTap: () {},
+                      validator: (val) =>
+                          val!.isEmpty ? 'Valeur invalide.' : null,
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        hintText: "Vidéo montré",
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 15,
+                  ),
 
-            DropdownButtonFormField(
-              items: itemsProcs
-                  .map((proc) => DropdownMenuItem(
-                        value: proc.id ?? "",
-                        child: Text("${proc.nom} ${proc.prenom}" ?? "N/A"),
-                      ))
-                  .toList(),
-              onChanged: (value) {
-                setState(
-                  () {
-                    proclSelect = value;
-                  },
-                );
-              },
-              value: proclSelect,
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                prefixIcon: Icon(
-                  Icons.group,
-                ),
-                prefixIconColor: Colors.black,
-                suffixIconColor: Colors.black,
-                hintText: "Choisir un proclamateur",
+                  //  Heure
+                  const Align(
+                    alignment: Alignment.centerLeft,
+                    child: Padding(
+                      padding: EdgeInsets.only(left: 32.0),
+                      child: Text(
+                        'Nombre d\'heure',
+                        style: TextStyle(
+                            fontFamily: 'Poppins',
+                            fontStyle: FontStyle.normal,
+                            fontSize: 16,
+                            color: Colors.black),
+                      ),
+                    ),
+                  ),
+                  Container(
+                    padding: textFromFieldPadding(),
+                    child: TextFormField(
+                      style: const TextStyle(
+                        fontSize: 18,
+                      ),
+                      keyboardType: TextInputType.number,
+                      controller: nbreHeureController,
+                      onTap: () {},
+                      validator: (val) =>
+                          val!.isEmpty ? 'Heure invalide.' : null,
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        hintText: "Heure",
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  //  Nouvelle visite
+                  const Align(
+                    alignment: Alignment.centerLeft,
+                    child: Padding(
+                      padding: EdgeInsets.only(left: 32.0),
+                      child: Text(
+                        'Nouvelle visite',
+                        style: TextStyle(
+                            fontFamily: 'Poppins',
+                            fontStyle: FontStyle.normal,
+                            fontSize: 16,
+                            color: Colors.black),
+                      ),
+                    ),
+                  ),
+                  Container(
+                    padding: textFromFieldPadding(),
+                    child: TextFormField(
+                      style: const TextStyle(
+                        fontSize: 18,
+                      ),
+                      keyboardType: TextInputType.number,
+                      controller: nvleVisiteController,
+                      onTap: () {},
+                      validator: (val) =>
+                          val!.isEmpty ? 'Valeur invalide.' : null,
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        hintText: "Nouvelle visite",
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  //  Cours biblique
+                  const Align(
+                    alignment: Alignment.centerLeft,
+                    child: Padding(
+                      padding: EdgeInsets.only(left: 32.0),
+                      child: Text(
+                        'Cours bibliques',
+                        style: TextStyle(
+                          fontFamily: 'Poppins',
+                          fontStyle: FontStyle.normal,
+                          fontSize: 16,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Container(
+                    padding: textFromFieldPadding(),
+                    child: TextFormField(
+                      style: const TextStyle(
+                        fontSize: 18,
+                      ),
+                      keyboardType: TextInputType.number,
+                      controller: coursBibliqueController,
+                      onTap: () {},
+                      validator: (val) =>
+                          val!.isEmpty ? 'Valeur invalide.' : null,
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        hintText: "Cours biblique",
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  //  Proclamateur
+                  const Align(
+                    alignment: Alignment.centerLeft,
+                    child: Padding(
+                      padding: EdgeInsets.only(left: 32.0),
+                      child: Text(
+                        'Proclamateur',
+                        style: TextStyle(
+                            fontFamily: 'Poppins',
+                            fontStyle: FontStyle.normal,
+                            fontSize: 16,
+                            color: Colors.black),
+                      ),
+                    ),
+                  ),
+                  Container(
+                    padding: textFromFieldPadding(),
+                    child: DropdownButtonFormField(
+                      items: itemsProcs
+                          .map((proc) => DropdownMenuItem(
+                                value: proc.id ?? "",
+                                child:
+                                    Text("${proc.nom} ${proc.prenom}" ?? "N/A"),
+                              ))
+                          .toList(),
+                      onChanged: (value) {
+                        setState(
+                          () {
+                            proclSelect = value;
+                          },
+                        );
+                      },
+                      value: proclSelect,
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        prefixIcon: Icon(
+                          Icons.group,
+                        ),
+                        prefixIconColor: Colors.black,
+                        suffixIconColor: Colors.black,
+                        hintText: "Choisir un proclamateur",
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
-          ],
+          ),
         ),
       ),
       bottomNavigationBar: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 80),
+        padding: const EdgeInsets.symmetric(horizontal: 60, vertical: 10),
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(
+            elevation: 0,
             backgroundColor: Theme.of(context).colorScheme.primary,
             foregroundColor: Colors.white,
+
           ),
           onPressed: () {
             addRapport();

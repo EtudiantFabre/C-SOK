@@ -39,32 +39,27 @@ class _RapportWidgetState extends State<RapportWidget> {
         }));
       },
       child: Container(
-        child: Card(
-          child: Column(
-            children: [
-              ListTile(
-                leading: CircleAvatar(
-                  child: Text(capitalizeFirstLetter(proc!.nom[0]) ?? "N/A"),
-                ),
-                title: Text(
-                  capitalizeFirstLetter(proc!.nom) ?? "N/A",
-                ),
-                subtitle: Text(
-                  "H : ${widget.rapport.nbre_heure}, NV : ${widget.rapport.nvle_visite}",
-                ),
-                trailing: IconButton(
-                  onPressed: widget.onDeletePressed,
-                  icon: const Icon(
-                    Icons.delete,
-                    //color: Colors.red,
-                  ),
-                  style: IconButton.styleFrom(
-                      backgroundColor: Colors.red.shade600,
-                      foregroundColor: Colors.white),
+        child: Column(
+          children: [
+            ListTile(
+              leading: CircleAvatar(
+                child: Text(capitalizeFirstLetter(proc?.nom[0] ?? "N/A")),
+              ),
+              title: Text(
+                "${capitalizeFirstLetter(proc?.nom ?? "N/A")} ${capitalizeFirstLetter(proc?.prenom ?? "N/A")}",
+              ),
+              subtitle: Text(
+                "H : ${widget.rapport.nbre_heure}, NV : ${widget.rapport.nvle_visite}, Cb : ${widget.rapport.cours_bibl}, Vidéo : ${widget.rapport.videos} \nDate : ${formatMonth(widget.rapport.created_at)}",
+              ),
+              trailing: IconButton(
+                onPressed: widget.onDeletePressed,
+                icon: const Icon(
+                  Icons.delete,
+                  color: Colors.red,
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

@@ -84,73 +84,71 @@ class _BuildBottomSheetTypeState extends State<BuildBottomSheetType> {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      child: Container(
-        height: 400,
-        padding: const EdgeInsets.all(30.0),
-        decoration: const BoxDecoration(
-          //color: Colors.amber,
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(
-              20.0,
-            ),
-            topRight: Radius.circular(
-              20.0,
-            ),
+    return Container(
+      height: 400,
+      padding: const EdgeInsets.all(30.0),
+      decoration: const BoxDecoration(
+        //color: Colors.amber,
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(
+            20.0,
+          ),
+          topRight: Radius.circular(
+            20.0,
           ),
         ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Text(
-              widget.type == null ? "Ajout de type" : "Modification du type",
-              style: TextStyle(
-                fontSize: 16.0,
+        color: Colors.white,
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Text(
+            widget.type == null ? "Ajout de type" : "Modification du type",
+            style: TextStyle(
+              fontSize: 16.0,
+            ),
+          ),
+          TextFormField(
+            keyboardType: TextInputType.text,
+            controller: nameController,
+            decoration: const InputDecoration(
+              hintText: "Titre du type",
+            ),
+            validator: (val) {
+              return (val != null && val.contains('@'))
+                  ? 'Valeur incorect !!!'
+                  : null;
+            },
+          ),
+          const SizedBox(
+            height: 40,
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Theme.of(context).colorScheme.primary,
+                foregroundColor: Colors.white,
+              ),
+              onPressed: addType,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    widget.type == null ? Icons.add : Icons.update,
+                    size: 15,
+                    color: Colors.white70,
+                  ),
+                  const Text(
+                    " Valider",
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                  ),
+                ],
               ),
             ),
-            TextFormField(
-              keyboardType: TextInputType.text,
-              controller: nameController,
-              decoration: const InputDecoration(
-                hintText: "Titre du type",
-              ),
-              validator: (val) {
-                return (val != null && val.contains('@'))
-                    ? 'Valeur incorect !!!'
-                    : null;
-              },
-            ),
-            const SizedBox(
-              height: 40,
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Theme.of(context).colorScheme.primary,
-                  foregroundColor: Colors.white,
-                ),
-                onPressed: addType,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      widget.type == null ? Icons.add : Icons.update,
-                      size: 15,
-                      color: Colors.white70,
-                    ),
-                    const Text(
-                      " Valider",
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

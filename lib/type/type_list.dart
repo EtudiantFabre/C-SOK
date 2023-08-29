@@ -53,6 +53,7 @@ class TypeListState extends State<TypeList> {
           backgroundColor: Theme.of(context).colorScheme.primary,
           onPressed: () {
             showModalBottomSheet(
+              backgroundColor: const Color(0x00000000),
               isScrollControlled: true,
               context: context,
               builder: (context) => SingleChildScrollView(
