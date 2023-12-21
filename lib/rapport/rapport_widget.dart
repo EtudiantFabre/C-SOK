@@ -21,6 +21,7 @@ class RapportWidget extends StatefulWidget {
 
 class _RapportWidgetState extends State<RapportWidget> {
   ProclamateurModel? proc;
+  int colorIndex = 0;
 
   @override
   void initState() {
@@ -58,6 +59,9 @@ class _RapportWidgetState extends State<RapportWidget> {
                   color: Colors.red,
                 ),
               ),
+            ),
+            const Divider(
+              height: 1.0,
             ),
           ],
         ),

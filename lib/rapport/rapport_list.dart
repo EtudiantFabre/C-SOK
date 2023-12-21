@@ -1,10 +1,12 @@
 import 'package:c_sok/models/model.dart';
+import 'package:c_sok/rapport/pdf_choice_dialog.dart';
 import 'package:c_sok/rapport/rapport_widget.dart';
 import 'package:c_sok/screens/add_proclamateur_screen.dart';
 import 'package:c_sok/screens/add_rapport_screen.dart';
 import 'package:c_sok/screens/export_pdf_rapports.dart';
 import 'package:c_sok/service/database_repository.dart';
 import 'package:flutter/material.dart';
+import 'package:pdf/pdf.dart';
 
 class RapportList extends StatefulWidget {
   const RapportList({Key? key}) : super(key: key);
@@ -24,7 +26,7 @@ class RapportListState extends State<RapportList> {
 
   @override
   Widget build(BuildContext context) {
-    print("Liste des rapports : $mesrapport");
+    //print("Liste des rapports : $mesrapport");
     return RefreshIndicator(
       onRefresh: () async {
         getRapports();
@@ -38,13 +40,27 @@ class RapportListState extends State<RapportList> {
                 Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (context) {
-                      return PdfPreviewRapport("Salut");
+                      return PdfPreviewRapport("");
                     },
                   ),
                 );
               },
               icon: const Icon(
                 Icons.picture_as_pdf_outlined,
+              ),
+            ),
+            IconButton(
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return PdfChoiceDialog();
+                    },
+                  ),
+                );
+              },
+              icon: const Icon(
+                Icons.arrow_downward,
               ),
             ),
           ],

@@ -9,8 +9,8 @@ import 'package:printing/printing.dart';
 
 // ignore: must_be_immutable
 class PdfPreviewRapport extends StatefulWidget {
-  String? text;
-  PdfPreviewRapport(this.text, {Key? key}) : super(key: key);
+  String? month;
+  PdfPreviewRapport(this.month, {Key? key}) : super(key: key);
 
   @override
   State<PdfPreviewRapport> createState() => _PdfPreviewRapportState();
@@ -54,7 +54,8 @@ class _PdfPreviewRapportState extends State<PdfPreviewRapport> {
 
   Future<Uint8List> makePdf() async {
     final pdf = pw.Document();
-    final ByteData bytes = await rootBundle.load('lib/assets/img7.jpg');
+    final ByteData bytes =
+        await rootBundle.load('lib/assets/proclamateurs.jpeg');
     final Uint8List byteList = bytes.buffer.asUint8List();
     debugPrint(mesrapport.toString());
     pdf.addPage(
@@ -69,7 +70,7 @@ class _PdfPreviewRapportState extends State<PdfPreviewRapport> {
                 mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
                 children: [
                   pw.Header(
-                    text: "Liste des Fiches de Rapports",
+                    text: "Fiche de Rapports",
                     level: 1,
                   ),
                   pw.Image(
@@ -81,7 +82,7 @@ class _PdfPreviewRapportState extends State<PdfPreviewRapport> {
                 ],
               ),
               pw.Divider(borderStyle: pw.BorderStyle.dashed),
-              pw.Paragraph(text: widget.text),
+              pw.Paragraph(text: widget.month),
               pw.Table(
                 border: pw.TableBorder.all(
                   color: PdfColors.black,
@@ -142,7 +143,7 @@ class _PdfPreviewRapportState extends State<PdfPreviewRapport> {
                   ...mesrapport.map(
                     (r) {
                       getProclamateurById(r.proclamateur);
-                      //debugPrint(proclamateur.toString());
+                      //print("proclamateur : $proclamateur");
                       return pw.TableRow(
                         children: [
                           pw.Expanded(

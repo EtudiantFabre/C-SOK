@@ -47,6 +47,7 @@ dependencies:
   adaptive_theme: ^3.2.1
   pdf: ^3.10.4
   printing: ^5.11.0
+  flutter_launcher_icons: ^0.13.1
 
 dev_dependencies:
   flutter_test:
@@ -66,13 +67,16 @@ dev_dependencies:
 flutter_icon:
   android: true
   ios: true
-  image_path: "asset/welcome.jpg"
+  image_path_android: "assets/appstore.png"
+  image_path_ios: "assets/appstore.png"
+  image_path: "assets/appstore.png"
 
 flutter:
   uses-material-design: true
   assets:
     - lib/assets/
     - lib/assets/database.db
+    - assets/
 
   # To add assets to your application, add an assets section, like this:
   # assets:

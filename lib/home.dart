@@ -21,7 +21,7 @@ class _HomeScreenState extends State<HomeScreen> {
     var heigth = MediaQuery.sizeOf(context).height;
     var widht = MediaQuery.sizeOf(context).width;
     return Scaffold(
-      appBar: AppBar(
+      /* appBar: AppBar(
         title: Text(
           "Accueil",
         ),
@@ -36,20 +36,42 @@ class _HomeScreenState extends State<HomeScreen> {
             icon: const Icon(Icons.settings),
           ),
         ],
-      ),
+      ), */
       body: Container(
-        padding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 7.0),
+        padding: const EdgeInsets.symmetric(vertical: 32.0, horizontal: 7.0),
         color: Colors.transparent,
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Center(
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text(
+                    "C-SOK",
+                    style: TextStyle(
+                      fontSize: 35.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/settings');
+                    },
+                    icon: const Icon(
+                      Icons.settings,
+                      size: 35.0,
+                    ),
+                  ),
+                ],
+              ),
+              /* const Center(
                 child: Text("Bienvenue dans l'applis C-SOK"),
               ),
-              const Divider(
+               const Divider(
                 color: Colors.blueGrey,
-              ),
+              ), */
+              
               const SizedBox(height: 10),
               const Text(
                 "Tableau de bord",
@@ -380,7 +402,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
               ),
-              Card(
+              /*Card(
                 clipBehavior: Clip.hardEdge,
                 shape: RoundedRectangleBorder(
                   side: BorderSide(
@@ -613,7 +635,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                 ),
-              ),
+              ),*/
             ],
           ),
         ),
